@@ -82,3 +82,5 @@ CREATE TABLE ordem_servico_pecas(
     CONSTRAINT fk_ordem_servico_peca_peca FOREIGN KEY (id_peca) REFERENCES peca(id_peca),
     CONSTRAINT fk_ordem_servico_peca_ordem_servico FOREIGN KEY (id_ordem_servico) REFERENCES ordem_servico(id_ordem_servico)
 );
+
+13 x 8

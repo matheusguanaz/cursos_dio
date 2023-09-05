@@ -94,3 +94,19 @@ CREATE TABLE produto_estoque (
 );
 
 ALTER TABLE cliente AUTO_INCREMENT = 1;
+
+CREATE FULLTEXT INDEX index_nome_produto USING HASH ON produto(nome); --Geralmente consulta-se o produto pelo nome
+
+delimiter //
+CREATE PROCEDURE IF NOT EXISTS cadastra_produto(
+    IN _nome VARCHAR(100),
+    IN _preco DECIMAL(10,2),
+    IN _classificacao_indicativa VARCHAR(20),
+    IN _categoria ENUM('eletronico','vestimenta','brinquedo','alimento','moveis'),
+    IN _avaliacao DECIMAL(10, 2),
+    IN _dimensoes VARCHAR(50)
+    )
+    BEGIN
+        INSERT INTO produto(nome, preco, classificacao_indicativa, categoria, avaliacaol, dimensoes) VALUES (_nome, _preco, _classificacao_indicativa, _categoria, _avaliacao, _dimensoes);
+        SELECT * FROM produto WHERE nome = _nome;
+    END//
