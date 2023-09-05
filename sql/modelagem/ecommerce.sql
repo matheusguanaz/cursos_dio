@@ -110,3 +110,17 @@ CREATE PROCEDURE IF NOT EXISTS cadastra_produto(
         INSERT INTO produto(nome, preco, classificacao_indicativa, categoria, avaliacaol, dimensoes) VALUES (_nome, _preco, _classificacao_indicativa, _categoria, _avaliacao, _dimensoes);
         SELECT * FROM produto WHERE nome = _nome;
     END//
+
+
+CREATE VIEW view_produto as SELECT * FROM produto;
+
+delimiter //
+CREATE TRIGGER valida_preco BEFORE UPDATE ON produto
+       FOR EACH ROW
+       BEGIN
+           IF NEW.preco < 0 THEN
+               SET NEW.preco = 10;
+           ELSEIF NEW.preco > 100 THEN
+               SET NEW.preco = 100;
+           END IF;
+       END;//
